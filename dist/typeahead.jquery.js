@@ -132,7 +132,8 @@
             dropdown: '<span class="tt-dropdown-menu"></span>',
             dataset: '<div class="tt-dataset-%CLASS%"></div>',
             suggestions: '<span class="tt-suggestions"></span>',
-            suggestion: '<div class="tt-suggestion"></div>'
+            suggestion: '<div class="tt-suggestion"></div>',
+            suggestionGroup: '<div class="tt-suggestion-group"></div>'
         };
     }();
     var css = function() {
@@ -613,7 +614,12 @@
                     return $suggestions;
                     function getSuggestionNode(suggestion) {
                         var $el;
-                        $el = $(html.suggestion).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
+                        if (suggestion.type === 'group') {
+                            $el = $(html.suggestionGroup).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
+                        }
+                        else {
+                            $el = $(html.suggestion).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
+                        }
                         $el.children().each(function() {
                             $(this).css(css.suggestionChild);
                         });
